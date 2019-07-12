@@ -1,4 +1,4 @@
-package com.fy.travels_server.background;
+package com.fy.travels.background;
 
 public interface Bbb {
 }
