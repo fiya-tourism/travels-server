@@ -7,6 +7,7 @@ import com.fy.travels.commons.ResultMsg;
 import com.fy.travels.commons.ResultVo;
 
 import java.util.Date;
+import java.util.List;
 
 public interface TravelService {
     DataGridVo selTravel(Page page);
@@ -17,4 +18,5 @@ public interface TravelService {
 
     ResultMsg delTravel(Travel travel);
 
+    void saveDemo(Travel travel);
 }

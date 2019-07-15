@@ -33,7 +33,8 @@ public class TravelController {
     @ResponseBody
     @CrossOrigin(allowCredentials="true", allowedHeaders="*",origins="*")
     public DataGridVo selTravel(Page page) {
-        return travelService.selTravel(page);
+        DataGridVo travelList = travelService.selTravel(page);
+        return travelList;
     }
 
     @RequestMapping("upTravelById")
@@ -53,6 +54,12 @@ public class TravelController {
         return travelService.delTravel(travel);
     }
 
+
+    @RequestMapping("saveDemo")
+    @ResponseBody
+    public void saveDemo(Travel travel){
+        travelService.saveDemo(travel);
+    }
 
 
 }

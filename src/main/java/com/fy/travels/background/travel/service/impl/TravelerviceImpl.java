@@ -8,8 +8,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.aspectj.lang.annotation.SuppressAjWarnings;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.solr.core.SolrTemplate;
-import org.springframework.data.solr.core.query.Criteria;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.solr.core.query.Query;
 import org.springframework.data.solr.core.query.SimpleQuery;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,7 @@ public class TravelerviceImpl implements TravelService {
     @Autowired
     private TravelMapper travelMapper;
     @Autowired
-    private SolrTemplate solrTemplate;
+    private MongoTemplate mongoTemplate;
     @Override
     public DataGridVo selTravel(Page page) {
         if (page == null){
@@ -31,23 +30,6 @@ public class TravelerviceImpl implements TravelService {
         PageHelper.startPage(page.getPage(),page.getRows());
         page.setSort(StringUtil.underscoreName(page.getSort()));
         List<Travel> travelList = travelMapper.queryList(page);
-        if (travelList != null){
-            Query query = new SimpleQuery("*:*");
-            query.setOffset((long) 0);
-            query.setRows(4);
-            Criteria hoFormx = new Criteria("travelsYn").is(0);
-            query.addCriteria(hoFormx);
-            org.springframework.data.domain.Page<Travel> users = solrTemplate.query("century_core", query, Travel.class);
-            List<Travel> content = users.getContent();
-            if(content.size()!=0){
-                return (DataGridVo) content;
-            }
-        }else{
-            for (int i = 0; i <travelList.size() ; i++) {
-                solrTemplate.saveBean("century_core",travelList.get(i));
-                solrTemplate.commit("century_core");
-            }
-        }
         PageInfo<Travel> pageIn = new PageInfo(travelList);
         return new DataGridVo(pageIn.getTotal(),pageIn.getList());
     }
@@ -56,6 +38,7 @@ public class TravelerviceImpl implements TravelService {
     public ResultVo insert(Travel travel) {
         if (travel != null && travel.getTravelsId() ==null){
             travelMapper.insert(travel);
+
             return ResultVo.success("成功");
         }
         travelMapper.updateByPrimaryKeySelective(travel);
@@ -80,7 +63,10 @@ public class TravelerviceImpl implements TravelService {
         return rs;
     }
 
-
+    @Override
+    public void saveDemo(Travel travel) {
+        mongoTemplate.save(travel);
+    }
 
 
 }

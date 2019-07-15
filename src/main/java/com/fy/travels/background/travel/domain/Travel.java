@@ -1,10 +1,15 @@
 package com.fy.travels.background.travel.domain;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
+import java.lang.annotation.Documented;
 import java.util.Date;
 
-public class Travel {
+@Document(collection = "travle")
+public class Travel implements Serializable {
     private Integer travelsId;
 
     private Integer travelsUserId;
@@ -104,4 +109,5 @@ public class Travel {
     public void setTravelsText(String travelsText) {
         this.travelsText = travelsText;
     }
+
 }
