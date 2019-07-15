@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fy.travels.background.travel.mapper.TravelMapper">
+  <resultMap id="BaseResultMap" type="com.fy.travels.background.travel.domain.Travel">
+    <id column="travels_id" jdbcType="INTEGER" property="travelsId" />
+    <result column="travels_user_id" jdbcType="INTEGER" property="travelsUserId" />
+    <result column="travels_content_id" jdbcType="VARCHAR" property="travelsContentId" />
+    <result column="travels_title" jdbcType="VARCHAR" property="travelsTitle" />
+    <result column="travels_release" jdbcType="TIMESTAMP" property="travelsRelease" />
+    <result column="travels_picture" jdbcType="VARCHAR" property="travelsPicture" />
+    <result column="travels_create" jdbcType="TIMESTAMP" property="travelsCreate" />
+    <result column="travels_update" jdbcType="TIMESTAMP" property="travelsUpdate" />
+    <result column="travels_yn" jdbcType="INTEGER" property="travelsYn" />
+    <result column="travels_text" jdbcType="VARCHAR" property="travelsText" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    travels_id, travels_user_id, travels_content_id, travels_title, travels_release, 
+    travels_picture, travels_create, travels_update, travels_yn, travels_text
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from fy_travels
+    where travels_id = #{travelsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from fy_travels
+    where travels_id = #{travelsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fy.travels.background.travel.domain.Travel">
+    insert into fy_travels (travels_id, travels_user_id, travels_content_id, 
+      travels_title, travels_release, travels_picture, 
+      travels_create, travels_update, travels_yn, 
+      travels_text)
+    values (#{travelsId,jdbcType=INTEGER}, #{travelsUserId,jdbcType=INTEGER}, #{travelsContentId,jdbcType=VARCHAR}, 
+      #{travelsTitle,jdbcType=VARCHAR}, #{travelsRelease,jdbcType=TIMESTAMP}, #{travelsPicture,jdbcType=VARCHAR}, 
+      #{travelsCreate,jdbcType=TIMESTAMP}, #{travelsUpdate,jdbcType=TIMESTAMP}, #{travelsYn,jdbcType=INTEGER}, 
+      #{travelsText,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fy.travels.background.travel.domain.Travel">
+    insert into fy_travels
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="travelsId != null">
+        travels_id,
+      </if>
+      <if test="travelsUserId != null">
+        travels_user_id,
+      </if>
+      <if test="travelsContentId != null">
+        travels_content_id,
+      </if>
+      <if test="travelsTitle != null">
+        travels_title,
+      </if>
+      <if test="travelsRelease != null">
+        travels_release,
+      </if>
+      <if test="travelsPicture != null">
+        travels_picture,
+      </if>
+      <if test="travelsCreate != null">
+        travels_create,
+      </if>
+      <if test="travelsUpdate != null">
+        travels_update,
+      </if>
+      <if test="travelsYn != null">
+        travels_yn,
+      </if>
+      <if test="travelsText != null">
+        travels_text,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="travelsId != null">
+        #{travelsId,jdbcType=INTEGER},
+      </if>
+      <if test="travelsUserId != null">
+        #{travelsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="travelsContentId != null">
+        #{travelsContentId,jdbcType=VARCHAR},
+      </if>
+      <if test="travelsTitle != null">
+        #{travelsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="travelsRelease != null">
+        #{travelsRelease,jdbcType=TIMESTAMP},
+      </if>
+      <if test="travelsPicture != null">
+        #{travelsPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="travelsCreate != null">
+        #{travelsCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="travelsUpdate != null">
+        #{travelsUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="travelsYn != null">
+        #{travelsYn,jdbcType=INTEGER},
+      </if>
+      <if test="travelsText != null">
+        #{travelsText,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fy.travels.background.travel.domain.Travel">
+    update fy_travels
+    <set>
+      <if test="travelsUserId != null">
+        travels_user_id = #{travelsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="travelsContentId != null">
+        travels_content_id = #{travelsContentId,jdbcType=VARCHAR},
+      </if>
+      <if test="travelsTitle != null">
+        travels_title = #{travelsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="travelsRelease != null">
+        travels_release = #{travelsRelease,jdbcType=TIMESTAMP},
+      </if>
+      <if test="travelsPicture != null">
+        travels_picture = #{travelsPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="travelsCreate != null">
+        travels_create = #{travelsCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="travelsUpdate != null">
+        travels_update = #{travelsUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="travelsYn != null">
+        travels_yn = #{travelsYn,jdbcType=INTEGER},
+      </if>
+      <if test="travelsText != null">
+        travels_text = #{travelsText,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where travels_id = #{travelsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fy.travels.background.travel.domain.Travel">
+    update fy_travels
+    set travels_user_id = #{travelsUserId,jdbcType=INTEGER},
+      travels_content_id = #{travelsContentId,jdbcType=VARCHAR},
+      travels_title = #{travelsTitle,jdbcType=VARCHAR},
+      travels_release = #{travelsRelease,jdbcType=TIMESTAMP},
+      travels_picture = #{travelsPicture,jdbcType=VARCHAR},
+      travels_create = #{travelsCreate,jdbcType=TIMESTAMP},
+      travels_update = #{travelsUpdate,jdbcType=TIMESTAMP},
+      travels_yn = #{travelsYn,jdbcType=INTEGER},
+      travels_text = #{travelsText,jdbcType=VARCHAR}
+    where travels_id = #{travelsId,jdbcType=INTEGER}
+  </update>
+  <select id="queryList" resultType="com.fy.travels.background.travel.domain.Travel">
+      SELECT * FROM fy_travels
+      WHERE
+      travels_yn = 0
+    <if test="sort != null and sort != ''">
+        ORDER BY  ${sort} ${order}=desc
+      </if>
+  </select>
+  <update id="delTravel" >
+		update fy_travels set travels_yn = #{travelsYn}, travels_update= #{travelsUpdate} where travels_id = #{travelsId}
+	</update>
+</mapper>
