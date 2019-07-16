@@ -150,15 +150,22 @@
       travels_text = #{travelsText,jdbcType=VARCHAR}
     where travels_id = #{travelsId,jdbcType=INTEGER}
   </update>
-  <select id="queryList" resultType="com.fy.travels.background.travel.domain.Travel">
-      SELECT * FROM fy_travels
-      WHERE
-      travels_yn = 0
-    <if test="sort != null and sort != ''">
-        ORDER BY  ${sort} ${order}=desc
-      </if>
-  </select>
+
+
+  <!--根据yn逻辑删除-->
   <update id="delTravel" >
 		update fy_travels set travels_yn = #{travelsYn}, travels_update= #{travelsUpdate} where travels_id = #{travelsId}
 	</update>
+
+  <!--查询用户信息-->
+  <select id="queryTravelList" resultType="com.fy.travels.background.travel.domain.Travel" parameterType="com.fy.travels.commons.Page">
+    select * from fy_travels
+    <where>
+      travels_yn=0
+    </where>
+
+    <if test="sort != null and sort != ''">
+      ORDER BY  ${sort} ${order}
+    </if>
+  </select>
 </mapper>

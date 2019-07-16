@@ -22,17 +22,22 @@ public class TravelerviceImpl implements TravelService {
     private TravelMapper travelMapper;
     @Autowired
     private MongoTemplate mongoTemplate;
+
+
+
     @Override
-    public DataGridVo selTravel(Page page) {
-        if (page == null){
-            page= new Page();
-        }
+    public DataGridVo selTr(Page page) {
+        String s = StrTool.humpToLine2(page.getSort());
+        page.setSort(s);
         PageHelper.startPage(page.getPage(),page.getRows());
-        page.setSort(StringUtil.underscoreName(page.getSort()));
-        List<Travel> travelList = travelMapper.queryList(page);
-        PageInfo<Travel> pageIn = new PageInfo(travelList);
-        return new DataGridVo(pageIn.getTotal(),pageIn.getList());
+        List<Travel> list =travelMapper.queryTravelList(page);
+        PageInfo pageInfo = new PageInfo<>(list);
+        DataGridVo<Travel> dg = new DataGridVo<>();
+        dg.setRows(list);
+        dg.setTotal(pageInfo.getTotal());
+        return dg;
     }
+
 
     @Override
     public ResultVo insert(Travel travel) {

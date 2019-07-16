@@ -6,9 +6,7 @@ import com.fy.travels.commons.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -29,13 +27,13 @@ public class TravelController {
         return travelService.insert(travel);
     }
 
-    @RequestMapping("selTravel")
+    @RequestMapping("selTr")
     @ResponseBody
     @CrossOrigin(allowCredentials="true", allowedHeaders="*",origins="*")
-    public DataGridVo selTravel(Page page) {
-        DataGridVo travelList = travelService.selTravel(page);
-        return travelList;
+    public DataGridVo<Travel> selTr(Page page) {
+        return travelService.selTr(page);
     }
+
 
     @RequestMapping("upTravelById")
     @ResponseBody
@@ -47,10 +45,10 @@ public class TravelController {
     /**
      * 修改yn隐藏当前数据
      * */
-    @RequestMapping("delTravel")
+    @RequestMapping(value = "delTravel",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "根据状态yn修改  隐藏数据")
-    public ResultMsg delTravel(Travel travel){
+    public ResultMsg delTravel(@RequestParam Travel travel){
         return travelService.delTravel(travel);
     }
 

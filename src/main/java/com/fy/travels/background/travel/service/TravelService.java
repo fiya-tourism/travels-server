@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface TravelService {
-    DataGridVo selTravel(Page page);
 
     ResultVo insert(Travel travel);
 
@@ -19,4 +18,6 @@ public interface TravelService {
     ResultMsg delTravel(Travel travel);
 
     void saveDemo(Travel travel);
+
+    DataGridVo<Travel> selTr(Page page);
 }

@@ -25,8 +25,9 @@ public interface TravelMapper {
 
     String upTravelById(Integer travelsId);
 
-    List<Travel> queryList(Page page);
 
 
     void delTravel(@Param("travelsYn") Integer travelsYn,@Param("travelsUpdate") Date travelsUpdate, @Param("travelsId") Integer id);
+
+    List<Travel> queryTravelList(Page page);
 }

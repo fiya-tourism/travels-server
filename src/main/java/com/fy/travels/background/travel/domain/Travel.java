@@ -1,13 +1,18 @@
 package com.fy.travels.background.travel.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.lang.annotation.Documented;
 import java.util.Date;
 
+@JsonDeserialize(as = Travel.class)
 @Document(collection = "travle")
 public class Travel implements Serializable {
     private Integer travelsId;
@@ -18,12 +23,18 @@ public class Travel implements Serializable {
 
     private String travelsTitle;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date travelsRelease;
 
     private String travelsPicture;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date travelsCreate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date travelsUpdate;
 
     private Integer travelsYn;
