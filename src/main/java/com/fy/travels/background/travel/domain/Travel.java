@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.lang.annotation.Documented;
 import java.util.Date;
 
-@JsonDeserialize(as = Travel.class)
 @Document(collection = "travle")
 public class Travel implements Serializable {
     private Integer travelsId;
@@ -121,4 +120,19 @@ public class Travel implements Serializable {
         this.travelsText = travelsText;
     }
 
+    @Override
+    public String toString() {
+        return "Travel{" +
+                "travelsId=" + travelsId +
+                ", travelsUserId=" + travelsUserId +
+                ", travelsContentId='" + travelsContentId + '\'' +
+                ", travelsTitle='" + travelsTitle + '\'' +
+                ", travelsRelease=" + travelsRelease +
+                ", travelsPicture='" + travelsPicture + '\'' +
+                ", travelsCreate=" + travelsCreate +
+                ", travelsUpdate=" + travelsUpdate +
+                ", travelsYn=" + travelsYn +
+                ", travelsText='" + travelsText + '\'' +
+                '}';
+    }
 }

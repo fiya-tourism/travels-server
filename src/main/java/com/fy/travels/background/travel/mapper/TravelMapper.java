@@ -17,17 +17,17 @@ public interface TravelMapper {
 
     int insertSelective(Travel record);
 
-    Travel selectByPrimaryKey(Integer travelsId);
 
     int updateByPrimaryKeySelective(Travel record);
 
     int updateByPrimaryKey(Travel record);
 
-    String upTravelById(Integer travelsId);
+    Travel selectByPrimaryKey(@Param("travelsId") Integer travelsId);
 
 
 
-    void delTravel(@Param("travelsYn") Integer travelsYn,@Param("travelsUpdate") Date travelsUpdate, @Param("travelsId") Integer id);
 
     List<Travel> queryTravelList(Page page);
+
+    void delTravel(@Param("travelsYn") Integer travelsYn,@Param("travelsId") Integer travelsId,@Param("travelsUpdate") Date travelsUpdate);
 }

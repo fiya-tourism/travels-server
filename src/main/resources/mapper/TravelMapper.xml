@@ -168,4 +168,10 @@
       ORDER BY  ${sort} ${order}
     </if>
   </select>
+    <select id="upTravelById" parameterType="java.lang.Integer">
+        select * from fy_travels
+        <where>
+            travels_id = #{travelsId}
+        </where>
+    </select>
 </mapper>

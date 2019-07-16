@@ -27,17 +27,33 @@ public class TravelerviceImpl implements TravelService {
 
     @Override
     public DataGridVo selTr(Page page) {
-        String s = StrTool.humpToLine2(page.getSort());
-        page.setSort(s);
+        if (page == null){
+            page= new Page();
+        }
         PageHelper.startPage(page.getPage(),page.getRows());
-        List<Travel> list =travelMapper.queryTravelList(page);
-        PageInfo pageInfo = new PageInfo<>(list);
-        DataGridVo<Travel> dg = new DataGridVo<>();
-        dg.setRows(list);
-        dg.setTotal(pageInfo.getTotal());
-        return dg;
+        page.setSort(StringUtil.underscoreName(page.getSort()));
+        List<Travel> pmList = travelMapper.queryTravelList(page);
+        PageInfo<Travel> pageIn = new PageInfo(pmList);
+        return new DataGridVo(pageIn.getTotal(),pageIn.getList());
     }
 
+
+    @Override
+    public ResultMsg delTravel(Travel travel) {
+        travel.setTravelsUpdate(new Date());
+        travel.setTravelsYn(1);
+        ResultMsg rs = new ResultMsg();
+        try{
+            travelMapper.delTravel(travel.getTravelsYn(),travel.getTravelsId(),travel.getTravelsUpdate());
+            rs.setMsg("删除成功");
+            rs.setCode(200);
+        }catch(Exception e){
+            rs.setMsg("删除失败  请重试");
+            rs.setCode(500);
+            rs.setSuccessFalse();
+        }
+        return rs;
+    }
 
     @Override
     public ResultVo insert(Travel travel) {
@@ -52,21 +68,9 @@ public class TravelerviceImpl implements TravelService {
 
 
 
-    @Override
-    public String upTravelById(Integer travelsId) {
-        return null;
-    }
 
-    @Override
-    public ResultMsg delTravel(Travel travel) {
-        travel.setTravelsYn(1);
-        travel.setTravelsUpdate(new Date());
-        ResultMsg rs = new ResultMsg();
-        if (travel.getTravelsId() != null) {
-            travelMapper.delTravel(travel.getTravelsYn(), travel.getTravelsUpdate(), travel.getTravelsId());
-        }
-        return rs;
-    }
+
+
 
     @Override
     public void saveDemo(Travel travel) {
@@ -74,4 +78,14 @@ public class TravelerviceImpl implements TravelService {
     }
 
 
+
+
+
+
+    @Override
+    public Travel upTravelById(Integer travelsId) {
+        Travel travel = travelMapper.selectByPrimaryKey(travelsId);
+        System.out.println(travel);
+        return travel;
+    }
 }

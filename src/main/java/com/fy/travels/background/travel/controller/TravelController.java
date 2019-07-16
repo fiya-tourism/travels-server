@@ -27,31 +27,26 @@ public class TravelController {
         return travelService.insert(travel);
     }
 
-    @RequestMapping("selTr")
+    @RequestMapping(value = "selTr" ,method = RequestMethod.POST)
     @ResponseBody
-    @CrossOrigin(allowCredentials="true", allowedHeaders="*",origins="*")
-    public DataGridVo<Travel> selTr(Page page) {
+    public DataGridVo<Travel> selTr(@RequestBody Page page) {
         return travelService.selTr(page);
     }
 
 
     @RequestMapping("upTravelById")
     @ResponseBody
-    public String upTravelById(Integer travelsId) {
+    public Travel upTravelById(Integer travelsId) {
 
         return travelService.upTravelById(travelsId);
     }
 
-    /**
-     * 修改yn隐藏当前数据
-     * */
-    @RequestMapping(value = "delTravel",method = RequestMethod.GET)
+    @RequestMapping("delTravel")
+    @ApiOperation(value = "根据状态yn修改  隐藏数据 接口")
     @ResponseBody
-    @ApiOperation(value = "根据状态yn修改  隐藏数据")
-    public ResultMsg delTravel(@RequestParam Travel travel){
+    public ResultMsg delTravel(@RequestBody Travel travel){
         return travelService.delTravel(travel);
     }
-
 
     @RequestMapping("saveDemo")
     @ResponseBody

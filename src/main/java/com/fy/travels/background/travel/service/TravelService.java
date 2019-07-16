@@ -11,11 +11,13 @@ import java.util.List;
 
 public interface TravelService {
 
+     ResultMsg delTravel(Travel travel);
+
+
     ResultVo insert(Travel travel);
 
-    String upTravelById(Integer travelsId);
+    Travel upTravelById(Integer travelsId);
 
-    ResultMsg delTravel(Travel travel);
 
     void saveDemo(Travel travel);
 
