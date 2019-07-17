@@ -45,10 +45,10 @@ public class TravelerviceImpl implements TravelService {
         ResultMsg rs = new ResultMsg();
         try{
             travelMapper.delTravel(travel.getTravelsYn(),travel.getTravelsId(),travel.getTravelsUpdate());
-            rs.setMsg("删除成功");
+            rs.setMsg("审核成功");
             rs.setCode(200);
         }catch(Exception e){
-            rs.setMsg("删除失败  请重试");
+            rs.setMsg("审核失败  请重试");
             rs.setCode(500);
             rs.setSuccessFalse();
         }
