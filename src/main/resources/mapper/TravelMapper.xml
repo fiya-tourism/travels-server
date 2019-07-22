@@ -14,11 +14,11 @@
     <result column="travels_text" jdbcType="VARCHAR" property="travelsText" />
   </resultMap>
   <sql id="Base_Column_List">
-    travels_id, travels_user_id, travels_content_id, travels_title, travels_release, 
+    travels_id, travels_user_id, travels_content_id, travels_title, travels_release,
     travels_picture, travels_create, travels_update, travels_yn, travels_text
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from fy_travels
     where travels_id = #{travelsId,jdbcType=INTEGER}
@@ -28,13 +28,13 @@
     where travels_id = #{travelsId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.fy.travels.background.travel.domain.Travel">
-    insert into fy_travels (travels_id, travels_user_id, travels_content_id, 
-      travels_title, travels_release, travels_picture, 
-      travels_create, travels_update, travels_yn, 
+    insert into fy_travels (travels_id, travels_user_id, travels_content_id,
+      travels_title, travels_release, travels_picture,
+      travels_create, travels_update, travels_yn,
       travels_text)
-    values (#{travelsId,jdbcType=INTEGER}, #{travelsUserId,jdbcType=INTEGER}, #{travelsContentId,jdbcType=VARCHAR}, 
-      #{travelsTitle,jdbcType=VARCHAR}, #{travelsRelease,jdbcType=TIMESTAMP}, #{travelsPicture,jdbcType=VARCHAR}, 
-      #{travelsCreate,jdbcType=TIMESTAMP}, #{travelsUpdate,jdbcType=TIMESTAMP}, #{travelsYn,jdbcType=INTEGER}, 
+    values (#{travelsId,jdbcType=INTEGER}, #{travelsUserId,jdbcType=INTEGER}, #{travelsContentId,jdbcType=VARCHAR},
+      #{travelsTitle,jdbcType=VARCHAR}, #{travelsRelease,jdbcType=TIMESTAMP}, #{travelsPicture,jdbcType=VARCHAR},
+      #{travelsCreate,jdbcType=TIMESTAMP}, #{travelsUpdate,jdbcType=TIMESTAMP}, #{travelsYn,jdbcType=INTEGER},
       #{travelsText,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.fy.travels.background.travel.domain.Travel">
@@ -168,10 +168,22 @@
       ORDER BY  ${sort} ${order}
     </if>
   </select>
-    <select id="upTravelById" parameterType="java.lang.Integer">
-        select * from fy_travels
-        <where>
-            travels_id = #{travelsId}
-        </where>
-    </select>
+  <select id="upTravelById" parameterType="java.lang.Integer">
+    select * from fy_travels
+    <where>
+      travels_id = #{travelsId}
+    </where>
+  </select>
+
+  <!-- 查询  -->
+  <select id="queryTravel" resultType="com.fy.travels.background.travel.domain.Travel" >
+    SELECT travels_id, travels_user_id, travels_content_id, travels_title, travels_release,
+    travels_picture, travels_create, travels_update, travels_yn, travels_text FROM
+    fy_travels
+    <where>
+      travels_yn = 0
+    </where>
+    ORDER BY
+    travels_create DESC
+  </select>
 </mapper>

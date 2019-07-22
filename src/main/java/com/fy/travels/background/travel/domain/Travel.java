@@ -1,19 +1,11 @@
 package com.fy.travels.background.travel.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.Serializable;
-import java.lang.annotation.Documented;
 import java.util.Date;
 
-@Document(collection = "travle")
-public class Travel implements Serializable {
+public class Travel {
     private Integer travelsId;
 
     private Integer travelsUserId;
@@ -21,17 +13,14 @@ public class Travel implements Serializable {
     private String travelsContentId;
 
     private String travelsTitle;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date travelsRelease;
 
     private String travelsPicture;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date travelsCreate;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date travelsUpdate;
@@ -61,7 +50,7 @@ public class Travel implements Serializable {
     }
 
     public void setTravelsContentId(String travelsContentId) {
-        this.travelsContentId = travelsContentId;
+        this.travelsContentId = travelsContentId == null ? null : travelsContentId.trim();
     }
 
     public String getTravelsTitle() {
@@ -69,7 +58,7 @@ public class Travel implements Serializable {
     }
 
     public void setTravelsTitle(String travelsTitle) {
-        this.travelsTitle = travelsTitle;
+        this.travelsTitle = travelsTitle == null ? null : travelsTitle.trim();
     }
 
     public Date getTravelsRelease() {
@@ -85,7 +74,7 @@ public class Travel implements Serializable {
     }
 
     public void setTravelsPicture(String travelsPicture) {
-        this.travelsPicture = travelsPicture;
+        this.travelsPicture = travelsPicture == null ? null : travelsPicture.trim();
     }
 
     public Date getTravelsCreate() {
@@ -117,22 +106,6 @@ public class Travel implements Serializable {
     }
 
     public void setTravelsText(String travelsText) {
-        this.travelsText = travelsText;
-    }
-
-    @Override
-    public String toString() {
-        return "Travel{" +
-                "travelsId=" + travelsId +
-                ", travelsUserId=" + travelsUserId +
-                ", travelsContentId='" + travelsContentId + '\'' +
-                ", travelsTitle='" + travelsTitle + '\'' +
-                ", travelsRelease=" + travelsRelease +
-                ", travelsPicture='" + travelsPicture + '\'' +
-                ", travelsCreate=" + travelsCreate +
-                ", travelsUpdate=" + travelsUpdate +
-                ", travelsYn=" + travelsYn +
-                ", travelsText='" + travelsText + '\'' +
-                '}';
+        this.travelsText = travelsText == null ? null : travelsText.trim();
     }
 }

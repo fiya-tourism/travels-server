@@ -5,7 +5,7 @@ public class Page {
 	private Integer page = 1;
 	
 	//每页条数
-	private Integer rows = 5;
+	private Integer rows = 2;
 
 	private String sort;
 	

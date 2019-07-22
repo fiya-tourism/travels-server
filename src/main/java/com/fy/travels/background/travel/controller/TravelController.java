@@ -3,6 +3,7 @@ package com.fy.travels.background.travel.controller;
 import com.fy.travels.background.travel.domain.Travel;
 import com.fy.travels.background.travel.service.TravelService;
 import com.fy.travels.commons.*;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,7 @@ public class TravelController {
 
     @RequestMapping("upTravelById")
     @ResponseBody
-    public Travel upTravelById(Integer travelsId) {
+    public Travel upTravelById(@RequestParam("travelsId") Integer travelsId) {
 
         return travelService.upTravelById(travelsId);
     }
@@ -54,5 +55,13 @@ public class TravelController {
         travelService.saveDemo(travel);
     }
 
+
+
+    @RequestMapping("queryTravel")
+    @ResponseBody
+    public List<Travel> queryTravel(){
+        List<Travel> travelsLet= travelService.queryTravel();
+        return travelsLet;
+    }
 
 }

@@ -1,10 +1,8 @@
 package com.fy.travels.background.travel.service;
 
 import com.fy.travels.background.travel.domain.Travel;
-import com.fy.travels.commons.DataGridVo;
-import com.fy.travels.commons.Page;
-import com.fy.travels.commons.ResultMsg;
-import com.fy.travels.commons.ResultVo;
+import com.fy.travels.commons.*;
+import com.github.pagehelper.PageInfo;
 
 import java.util.Date;
 import java.util.List;
@@ -22,4 +20,6 @@ public interface TravelService {
     void saveDemo(Travel travel);
 
     DataGridVo<Travel> selTr(Page page);
+
+    List<Travel> queryTravel();
 }

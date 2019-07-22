@@ -6,11 +6,12 @@ import com.fy.travels.background.travel.service.TravelService;
 import com.fy.travels.commons.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.aspectj.lang.annotation.SuppressAjWarnings;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.solr.core.query.Query;
-import org.springframework.data.solr.core.query.SimpleQuery;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -36,6 +37,16 @@ public class TravelerviceImpl implements TravelService {
         PageInfo<Travel> pageIn = new PageInfo(pmList);
         return new DataGridVo(pageIn.getTotal(),pageIn.getList());
     }
+
+    @Override
+    public List<Travel> queryTravel() {
+        //做分页查询 list接收
+        List<Travel> newsList = travelMapper.queryTravel();
+        //实例化一个 分页工具对象
+        //返回控制层
+        return newsList;
+    }
+
 
 
     @Override
@@ -76,8 +87,6 @@ public class TravelerviceImpl implements TravelService {
     public void saveDemo(Travel travel) {
         mongoTemplate.save(travel);
     }
-
-
 
 
 
