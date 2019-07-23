@@ -27,6 +27,22 @@ public class Travel {
 
     private Integer travelsYn;
 
+    @Override
+    public String toString() {
+        return "Travel{" +
+                "travelsId=" + travelsId +
+                ", travelsUserId=" + travelsUserId +
+                ", travelsContentId='" + travelsContentId + '\'' +
+                ", travelsTitle='" + travelsTitle + '\'' +
+                ", travelsRelease=" + travelsRelease +
+                ", travelsPicture='" + travelsPicture + '\'' +
+                ", travelsCreate=" + travelsCreate +
+                ", travelsUpdate=" + travelsUpdate +
+                ", travelsYn=" + travelsYn +
+                ", travelsText='" + travelsText + '\'' +
+                '}';
+    }
+
     private String travelsText;
 
     public Integer getTravelsId() {
@@ -108,4 +124,5 @@ public class Travel {
     public void setTravelsText(String travelsText) {
         this.travelsText = travelsText == null ? null : travelsText.trim();
     }
+
 }

@@ -22,4 +22,6 @@ public interface TravelService {
     DataGridVo<Travel> selTr(Page page);
 
     List<Travel> queryTravel();
+
+    Integer insertTravels(Travel travel);
 }

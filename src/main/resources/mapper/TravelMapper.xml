@@ -28,6 +28,9 @@
     where travels_id = #{travelsId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.fy.travels.background.travel.domain.Travel">
+      <selectKey keyProperty="travelsId" resultType="java.lang.Integer" order="AFTER">
+          select last_insert_id()
+      </selectKey>
     insert into fy_travels (travels_id, travels_user_id, travels_content_id,
       travels_title, travels_release, travels_picture,
       travels_create, travels_update, travels_yn,

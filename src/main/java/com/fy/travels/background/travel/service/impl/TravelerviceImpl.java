@@ -24,6 +24,10 @@ public class TravelerviceImpl implements TravelService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    private static final String MDB_NAME= "Travels";
+    private static final String WH_NAME= "游记";
+
+
 
 
     @Override
@@ -94,7 +98,44 @@ public class TravelerviceImpl implements TravelService {
     @Override
     public Travel upTravelById(Integer travelsId) {
         Travel travel = travelMapper.selectByPrimaryKey(travelsId);
-        System.out.println(travel);
+
         return travel;
+    }
+
+
+
+
+
+    @Override
+    public Integer insertTravels(Travel travels) {
+        travels.setTravelsCreate(new Date());
+        travels.setTravelsYn(0);
+        travelMapper.insert(travels);
+        Integer insert = travels.getTravelsId();
+
+        /*//多图片上传
+        travels.setTravelsId(insert);
+        String[] split = travels.getTravelsPicture().split(",");
+        for (int i=1;i<=split.length;i++){
+            travels.setTravelsPicture(split[i]);
+            travelMapper.insert(travels);
+        }*/
+
+        if (insert!=null){
+            travels.setTravelsContentId(insert+WH_NAME);
+            travels.setTravelsText(travels.getTravelsText());
+            Integer insertcontent = insertcontent(travels);
+            if (insertcontent==1){
+                return 1;
+            }
+        }
+        return 2;
+    }
+    public Integer insertcontent(Travel travels){
+        Travel insert = this.mongoTemplate.insert(travels);
+        if (insert !=null){
+            return 1;
+        }
+        return 2;
     }
 }

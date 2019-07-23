@@ -4,6 +4,7 @@ import com.fy.travels.background.travel.domain.Travel;
 import com.fy.travels.background.travel.service.TravelService;
 import com.fy.travels.commons.*;
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,7 @@ import java.util.List;
 @Controller
 @RequestMapping("travels")
 public class TravelController {
-
-
+    private static final String PAHT_NAME="http://localhost:8030";
     @Autowired
     private TravelService travelService;
 
@@ -38,8 +38,10 @@ public class TravelController {
     @RequestMapping("upTravelById")
     @ResponseBody
     public Travel upTravelById(@RequestParam("travelsId") Integer travelsId) {
-
-        return travelService.upTravelById(travelsId);
+       Travel travel =  travelService.upTravelById(travelsId);
+        travel.setTravelsPicture(PAHT_NAME+travel.getTravelsPicture());
+        System.out.println(travel);
+        return travel;
     }
 
     @RequestMapping("delTravel")
@@ -61,7 +63,30 @@ public class TravelController {
     @ResponseBody
     public List<Travel> queryTravel(){
         List<Travel> travelsLet= travelService.queryTravel();
+
         return travelsLet;
     }
+
+
+
+
+
+    /**
+     * 新增
+     * @param
+     * @param
+     */
+    @RequestMapping(value = "insertTravels",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer insertTravels(@RequestBody Travel travels){
+
+        Integer integer = travelService.insertTravels(travels);
+        System.out.println(integer);
+        if (integer==1){
+            return 1;
+        }
+        return 2;
+    }
+
 
 }
