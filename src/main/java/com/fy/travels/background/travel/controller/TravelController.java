@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @RequestMapping("travels")
 public class TravelController {
-    private static final String PAHT_NAME="http://localhost:8030";
+    private static final String PAHT_NAME="http://localhost:8022";
     @Autowired
     private TravelService travelService;
 
